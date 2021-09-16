@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" :style="backgroundImage" @click="clickBg">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Manager from "@/components/views/Manager";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Manager
+  },
+  data() {
+    return {
+      index: 1,
+    }
+  },
+  computed: {
+    backgroundImage: function () {
+      return "background-image: url(" + require(`./assets/img/${this.index}.png`) + ")"
+    }
+  },
+  methods: {
+    clickBg() {
+      this.index = (this.index) % 3 + 1
+    }
   }
 }
 </script>
 
 <style>
+@import "assets/css/base.css";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-position: 0 -60px;
 }
 </style>
