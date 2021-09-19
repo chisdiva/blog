@@ -1,6 +1,9 @@
 //引入mongoose，连接数据库
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/mblog')
+mongoose.connection.once("open", function () {
+    console.log('11')
+})
 //db.on('error', console.error.bind(console, 'connection error:'));
 
 //设计集合结构schema，也就是约束
@@ -57,8 +60,19 @@ const myCollect = mongoose.model('myCollect', {
     },
 })
 
+const blogUsers = mongoose.model('blogUsers', {
+    userName: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+})
 module.exports = {
     myBlog: myBlog,
     myEssay: myEssay,
-    myCollect: myCollect
+    myCollect: myCollect,
+    blogUsers: blogUsers
 }

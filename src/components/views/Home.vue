@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     getData(category) {
-      this.$axios.get(`http://localhost:7866/${category}`).then((res) => {
+      this.$axios.get(`${category}`).then((res) => {
         this.content = res.data;
       }).catch((err) => {
         console.log(err)

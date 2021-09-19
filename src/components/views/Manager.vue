@@ -125,8 +125,11 @@ export default {
       this.getData(this.kind[this.currentIndex])
     },
     getData(category) {
-      this.$axios.get(`http://localhost:7866/${category}`).then((res) => {
+      this.$axios.get(`${category}`).then((res) => {
         this.content = res.data;
+        if(res.headers.code === '2') {
+          this.$router.replace('/login')
+        }
       }).catch((err) => {
         console.log(err)
       })
@@ -136,7 +139,7 @@ export default {
         this.dialogFormVisible = true;
         this.isNewCollect = false;
         this.form.id = row._id;
-        this.$axios.get(`http://localhost:7866/${this.kind[this.currentIndex]}/${this.form.id}`).then(res => {
+        this.$axios.get(`${this.kind[this.currentIndex]}/${this.form.id}`).then(res => {
           this.form.name = res.data.title;
           this.form.link = res.data.link;
         })
@@ -152,7 +155,7 @@ export default {
     },
     handleDelete(index, row) {
       this.content.splice(index, 1);
-      this.$axios.delete(`http://localhost:7866/${this.kind[this.currentIndex]}/${row._id}`);
+      this.$axios.delete(`${this.kind[this.currentIndex]}/${row._id}`);
     },
     newBlog() {
       if (this.kind[this.currentIndex] === 'collect') {
@@ -174,8 +177,7 @@ export default {
       this.dialogFormVisible = false;
       //新建收藏
       if (this.isNewCollect) {
-        console.log('..')
-        this.$axios.post(`http://localhost:7866/${this.kind[this.currentIndex]}/new`, {
+        this.$axios.post(`${this.kind[this.currentIndex]}/new`, {
           title: this.form.name,
           link: this.form.link,
           date: this.nowDate
@@ -188,7 +190,7 @@ export default {
       }
       //编辑收藏
       else {
-        this.$axios.post(`http://localhost:7866/${this.kind[this.currentIndex]}/${this.form._id}`, {
+        this.$axios.post(`${this.kind[this.currentIndex]}/${this.form._id}`, {
           id: this.form._id,
           title: this.form.name,
           link: this.form.link,
@@ -208,6 +210,17 @@ export default {
   },
   created() {
     this.getData('blog');
+  },
+
+  //路由进入前判断token
+  beforeRouteEnter(to, from, next) {
+    let token = localStorage.getItem('token')
+    if(token === null || token === '') {
+      next('/login')
+    }
+    else {
+      next()
+    }
   }
 }
 </script>

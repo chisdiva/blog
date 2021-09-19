@@ -4,21 +4,23 @@ const crud = require('./crud')
 //创建路由容器
 const router = express.Router()
 
+const crypto = require('crypto')
+
 const myBlog = crud.myBlog
 const myCollect = crud.myCollect;
 const myEssay = crud.myEssay;
+const blogUsers = crud.blogUsers
 
+const jwtUtil = require('./jwt')
 
 //读取全部文章
 router.get('/blog', function (req, res) {
+
     myBlog.find((err, data) => {
       if(err) {
-          console.log(err)
          return res.send(err)
       }
-        console.log(data)
       res.send(data)
-
     })
 })
 
@@ -172,4 +174,35 @@ router.delete('/collect/:id', (req, res) => {
     })
 })
 
+//登陆
+router.post('/login', (req, res) => {
+    let userName = req.body.userName;
+    let password = req.body.password;
+    return new Promise((resolve, reject) => {
+        //在集合中查找该用户名
+        blogUsers.findOne({"userName": userName}, function(err, data) {
+            if(err) {
+                reject(err);
+            }
+            else resolve(data)
+        })
+    }).then(result => {
+        if(result) {
+            //验证密码，生成token并发送
+            if(result.password === password) {
+                let jwt = new jwtUtil(result);
+                let token = jwt.generateToken();
+                res.send({status:200, msg: '登陆成功', token: token})
+            }
+            else {
+                res.send({status:400, msg:'密码错误'})
+            }
+        }
+        else {
+            res.send({status:404,msg:'账号不存在'})
+        }
+    }).catch(err => {
+        res.send({status: 500, msg: '查找失败'})
+    })
+})
 module.exports = router

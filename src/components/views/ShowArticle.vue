@@ -28,7 +28,7 @@ name: "ShowArticle",
   methods: {
     newComment(comment) {
       this.comments.push(comment);
-      this.$axios.post(`http://localhost:7866/${this.$route.params.category}/${this.$route.params.id}`, {
+      this.$axios.post(`${this.$route.params.category}/${this.$route.params.id}`, {
         id: this.$route.params.id,
         title: this.title,
         content: this.content,
@@ -37,7 +37,7 @@ name: "ShowArticle",
     }
   },
   mounted() {
-    this.$axios.get(`http://localhost:7866/${this.$route.params.category}/${this.$route.params.id}`).then(res => {
+    this.$axios.get(`${this.$route.params.category}/${this.$route.params.id}`).then(res => {
       this.title = res.data.title;
       this.content = res.data.content;
       this.date = res.data.date;

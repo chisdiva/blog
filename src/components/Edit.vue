@@ -43,7 +43,7 @@ export default {
   methods: {
     publish() {
       if(!this.isNew) {
-        this.$axios.post(`http://localhost:7866/${this.category}/${this.$route.params.id}`, {
+        this.$axios.post(`${this.category}/${this.$route.params.id}`, {
           id: this.$route.params.id,
           title: this.title,
           content: this.text,
@@ -52,7 +52,7 @@ export default {
           this.$router.push("/manager");
         })
       } else {
-        this.$axios.post(`http://localhost:7866/${this.category}/new`, {
+        this.$axios.post(`${this.category}/new`, {
           title: this.title,
           content: this.text,
           date: this.nowDate
@@ -73,7 +73,7 @@ export default {
   mounted() {
     if(!this.isNew) {
       //如果标志位为假，则根据id获取文章标题内容
-      this.$axios.get(`http://localhost:7866/${this.category}/${this.$route.params.id}`).then(res => {
+      this.$axios.get(`${this.category}/${this.$route.params.id}`).then(res => {
         this.title = res.data.title;
         this.text = res.data.content;
       })
