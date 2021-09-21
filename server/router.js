@@ -209,22 +209,12 @@ router.post('/login', (req, res) => {
     })
 })
 
-//定义存储器
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './public/images')
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${file.name}`)
-    }
-})
 
-const upload = multer({storage: storage})
+
 //图片上传
 router.post('/upload', multer({
         dest:'uploads'
     }).array('file',10),(req,res)=>{
-        console.log(req.files)
         const files = req.files;
         const fileList = [];
         for(let i in files){
@@ -233,7 +223,6 @@ router.post('/upload', multer({
             file.path = `uploads/${file.originalname}`;
             fileList.push(file)
         }
-        console.log(fileList);
         res.send(fileList)
     }
 );
