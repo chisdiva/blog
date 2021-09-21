@@ -86,10 +86,12 @@ import SideBar from "@/components/SideBar";
 import Pagination from "@/components/Pagination";
 import NavBar from "@/components/NavBar";
 import {format} from "@/common/util";
+//表格只在Manager中使用，所以在这里引入
+import {Table, TableColumn} from "element-ui"
 
 export default {
   name: "Manager",
-  components: {NavBar, SideBar, Pagination},
+  components: {NavBar, SideBar, Pagination, "el-table": Table, "el-table-column": TableColumn},
 
   data() {
     return {

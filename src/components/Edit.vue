@@ -18,8 +18,11 @@
     <v-md-editor
         v-model="text"
         height="400px"
-        :disabled-menus="[]">
+        :disabled-menus="[]"
+        @upload-image="handleUploadImage">
     </v-md-editor>
+    <input style="display:none" accept="image/gif,image/jpeg,image/jpg,image/png"
+           type="file" id="upInput" ref="upInput">
   </div>
 </template>
 
@@ -61,7 +64,26 @@ export default {
           this.$router.push("/manager");
         })
       }
-    }
+    },
+    handleUploadImage(event, insertImage, files) {
+      // 拿到 files 之后上传到文件服务器，然后向编辑框中插入对应的内容
+      let formData = new FormData()
+      formData.append('file', files[0])
+
+      let imageUrl = '';
+      this.$axios.post("upload",formData).then(res=>{
+        imageUrl = res.data[0].path
+        imageUrl = `http://110.42.141.74:7866/${imageUrl}`
+        console.log(imageUrl)
+      });
+      // 此处只做示例
+      insertImage({
+        url: `http://110.42.141.74:7866/public/images/p180856098.jpg`,
+        desc: '七龙珠',
+        // width: 'auto',
+        // height: 'auto',
+      });
+    },
   },
   created() {
     this.category = this.$route.params.category;

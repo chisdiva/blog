@@ -1,6 +1,7 @@
 
 const express = require('express')
 const crud = require('./crud')
+const fs = require('fs')
 //创建路由容器
 const router = express.Router()
 
@@ -12,6 +13,8 @@ const myEssay = crud.myEssay;
 const blogUsers = crud.blogUsers
 
 const jwtUtil = require('./jwt')
+
+const multer = require('multer')
 
 //读取全部文章
 router.get('/blog', function (req, res) {
@@ -205,4 +208,33 @@ router.post('/login', (req, res) => {
         res.send({status: 500, msg: '查找失败'})
     })
 })
+
+//定义存储器
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images')
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${file.name}`)
+    }
+})
+
+const upload = multer({storage: storage})
+//图片上传
+router.post('/upload', multer({
+        dest:'uploads'
+    }).array('file',10),(req,res)=>{
+        console.log(req.files)
+        const files = req.files;
+        const fileList = [];
+        for(let i in files){
+            let file = files[i];
+            fs.renameSync(file.path,`uploads/${file.originalname}`);
+            file.path = `uploads/${file.originalname}`;
+            fileList.push(file)
+        }
+        console.log(fileList);
+        res.send(fileList)
+    }
+);
 module.exports = router
