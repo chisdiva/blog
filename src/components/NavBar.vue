@@ -1,7 +1,7 @@
 <template>
   <div id="nav-bar">
     <div class="logo" @click="toIndex">
-      <img src="../assets/img/logo.jpg" alt="">
+      ChisDiva
     </div>
     <div class="link-wrap">
       <router-link  to="/blog" >文章</router-link>
@@ -29,18 +29,21 @@ export default {
   position: relative;
   padding-bottom: 1px;
   margin-right: 80px;
+  height: 80px;
 }
 
 .logo {
   margin-left: 40px;
   width: 80px;
-}
-
-.logo img {
-  width: 80px;
-  height: 80px;
+  position: absolute;
+  bottom: 2px;
+  color: #338db7;
+  font-size: 40px;
+  font-weight: 900;
+  text-shadow: 1px -2px 2px blueviolet;
   cursor: pointer;
 }
+
 
 .link-wrap {
   font-size: 18px;

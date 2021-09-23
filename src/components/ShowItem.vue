@@ -10,7 +10,7 @@
           placeholder="输入关键字搜索"/>
     </div>
     <div class="blog-list"
-          v-for="item in this.blogData"
+          v-for="item in this.blogData.slice(0, (current+1) * 5)"
           :key="item._id"
           @click="toBlog(item._id)">
       <span class="date">{{item.date}}</span>
@@ -33,6 +33,9 @@ export default {
     },
     category: {
       type: String
+    },
+    current: {
+      type: Number
     }
   },
   methods: {

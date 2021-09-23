@@ -76,12 +76,11 @@ export default {
         imageUrl = `http://110.42.141.74:7866/${imageUrl}`
         insertImage({
           url: imageUrl,
-          desc: '七龙珠',
+          desc: '插入图片',
           // width: 'auto',
           // height: 'auto',
         });
       });
-      // 此处只做示例
 
     },
   },

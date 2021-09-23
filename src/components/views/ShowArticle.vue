@@ -7,16 +7,19 @@
     <v-md-editor :value="content" mode="preview" style="width: 60%"></v-md-editor>
     <comment class="comment" :comments="this.comments" :category="this.$route.params.category"
               @newComment="newComment"></comment>
+    <back-top class="backTop" :is-scroll="isScroll" @click.native="backTopClick('show-article')"></back-top>
   </div>
 </template>
 
 <script>
-import VueMarkdownEditor, { xss } from '@kangc/v-md-editor';
+import {myScroll} from "@/common/mixin";
 import NavBar from "@/components/NavBar";
 import Comment from "@/components/comment";
+import BackTop from "@/components/BackTop";
 export default {
 name: "ShowArticle",
-  components: {Comment, NavBar},
+  components: {Comment, NavBar, BackTop},
+  mixins:[myScroll],
   data() {
     return {
       html: '',
