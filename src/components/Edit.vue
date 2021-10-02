@@ -9,25 +9,35 @@
     </el-input>
     <el-button
         class="publish-btn"
+        type="danger"
+        icon="el-icon-delete"
+        size="small"
+        @click="back"
+        style="margin-left: 40%">
+      返 回</el-button>
+    <el-button
+        class="publish-btn"
         type="primary"
         icon="el-icon-edit"
         size="small"
         @click="publish"
-        style="margin-left: 800px">
+        style="margin-left: 2%">
       发表文章</el-button>
     <v-md-editor
         v-model="text"
         height="400px"
         :disabled-menus="[]"
-        @upload-image="handleUploadImage">
+        @upload-image="handleUploadImage"
+        :include-level="[3, 4]">
     </v-md-editor>
-    <input style="display:none" accept="image/gif,image/jpeg,image/jpg,image/png"
-           type="file" id="upInput" ref="upInput">
+
   </div>
 </template>
 
 <script>
 import {format} from '@/common/util'
+import {request} from "@/network/request"
+
 export default {
   name: "Edit",
   data() {
@@ -40,7 +50,7 @@ export default {
   },
   computed: {
     nowDate: function () {
-      return format("mm-dd", new Date());
+      return format("YYYY-mm-dd", new Date());
     }
   },
   methods: {
@@ -51,6 +61,7 @@ export default {
           title: this.title,
           content: this.text,
           date: this.nowDate
+          //date: '07-05'
         }).then(() => {
           this.$router.push("/manager");
         })
@@ -59,11 +70,15 @@ export default {
           title: this.title,
           content: this.text,
           date: this.nowDate
+          //date: '07-05'
         }).then(() => {
           console.log(this.$router)
           this.$router.push("/manager");
         })
       }
+    },
+    back() {
+      this.$router.back()
     },
     handleUploadImage(event, insertImage, files) {
       // 拿到 files 之后上传到文件服务器，然后向编辑框中插入对应的内容

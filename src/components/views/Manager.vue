@@ -228,6 +228,9 @@ export default {
 </script>
 
 <style scoped>
+#manager {
+  padding-top: 60px;
+}
 .logo {
   padding-left: 40px;
 }

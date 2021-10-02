@@ -21,6 +21,7 @@
 
 <script>
 import NavBar from "@/components/NavBar";
+import {request} from "@/network/request"
 export default {
 name: "Login",
   components: {NavBar},

@@ -25,6 +25,7 @@ app.all("*",function(req,res,next){
 })
 
 app.use(function(req, res, next) {
+
     if(req.headers['access-token']) {
         let token = req.headers['access-token']
         let jwt = new Jwt(token);

@@ -2,12 +2,15 @@ import axios from "axios";
 import router from "@/router";
 
 export function request(config) {
+    //创建实例
     const instance = axios.create({
         baseURL: 'http://110.42.141.74:7866',
+        //baseURL: 'http://localhost:7866',
         timeout: 2000
     })
     instance.interceptors.request.use(res => {
         let url = res.url;
+        console.log(url)
         //判断是否为manager页面
         if(router.currentRoute.path.split('/').pop() === 'manager') {
             let token = localStorage.getItem('token')
@@ -23,7 +26,7 @@ export function request(config) {
         return err
     })
     instance.interceptors.response.use(res => {
-        return res.data
+        return res
     }, err => {
         console.log(err)
     })

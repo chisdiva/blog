@@ -70,6 +70,17 @@ const blogUsers = mongoose.model('blogUsers', {
         required: true
     }
 })
+
+const user = mongoose.model('user', {
+    userName: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+})
 module.exports = {
     myBlog: myBlog,
     myEssay: myEssay,

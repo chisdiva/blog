@@ -16,6 +16,16 @@ const jwtUtil = require('./jwt')
 
 const multer = require('multer')
 
+const axios = require('axios')
+
+router.get('/getIP' ,function (req, res) {
+    let location = ''
+    axios.get("https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?query="+req.ip+"&co=&resource_id=6006&t=1555898284898&ie=utf8&oe=utf8&format=json&tn=baidu")
+        .then(res => {
+            location = res.data.data[0].location
+        })
+    res.send({clientIP:req.ip, location:location})
+})
 //读取全部文章
 router.get('/blog', function (req, res) {
 

@@ -4,8 +4,8 @@
 /*:root -> 获取根元素，即html*/
 :root {
     /*在css中定义变量*/
-    --color-text: #666;
-    --color-high-text: #ff5777;
+    --color-text: rgb(24, 144, 255);
+    --color-high-text: deeppink;
     --color-tint: #ff8198;
     --color-background: #fff;
     --font-size: 14px;
@@ -27,8 +27,8 @@ body {
     background: var(--color-background);
     /*color: var(--color-text);*/
     /* rem vw/vh */
-    width: 100vw;
-    padding: 0 40px;
+    /*width: 100vw;*/
+    /*padding: 0 40px;*/
 }
 
 a {

@@ -1,8 +1,10 @@
 <template>
   <div id="home">
     <nav-bar></nav-bar>
-    <show-item :blog-data="content" :category="this.category" :current="this.current"></show-item>
-    <introduction class="intro"></introduction>
+    <div class="home-wrap">
+      <show-item class="item" :blog-data="content" :category="this.category" :current="this.current"></show-item>
+      <introduction class="intro"></introduction>
+    </div>
     <back-top class="backTop" :is-scroll="isScroll" @click.native="backTopClick('home')"></back-top>
   </div>
 </template>
@@ -13,6 +15,7 @@ import ShowItem from "@/components/ShowItem";
 import Introduction from "@/components/Introduction";
 import {myScroll} from "@/common/mixin";
 import BackTop from "@/components/BackTop";
+import {request} from "@/network/request"
 export default {
   name: "Home",
   components: {BackTop, Introduction, ShowItem, NavBar},
@@ -21,15 +24,18 @@ export default {
     return {
       category: '',
       content: [],
-      current: 0,
-
     }
   },
   methods: {
     getData(category) {
-      this.$axios.get(`${category}`).then((res) => {
+      // this.$axios.get(`${category}`).then((res) => {
+      //   this.content = res.data.reverse()
+      // }).catch((err) => {
+      //   console.log(err)
+      // })
+      request(`/${category}`).then(res => {
         this.content = res.data.reverse()
-      }).catch((err) => {
+      }).catch(err => {
         console.log(err)
       })
     },
@@ -43,12 +49,7 @@ export default {
       this.category = to.name;
       this.getData(this.category)
     },
-    isBottom: function () {
-      if (this.isBottom) {
-        this.current++;
-        this.isBottom = false;
-      }
-    }
+
   }
 }
 </script>
@@ -56,11 +57,20 @@ export default {
 <style scoped>
   #home {
     position: relative;
+    padding-top: 60px;
+  }
+  .home-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .item {
+    flex: 0 1 40%;
   }
   .intro {
-    position: absolute;
-    top:108px;
-    right: 120px;
+    margin-top: 50px;
+    /*position: absolute;*/
+    /*top:108px;*/
+    /*right: 120px;*/
   }
 
 </style>

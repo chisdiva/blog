@@ -14,16 +14,19 @@ const routes = [
         redirect: '/blog'
     },
     {
+        meta: {index: 1},
         path: '/blog',
         name: 'blog',
         component: Home
     },
     {
+        meta: {index: 2},
         path: '/essay',
         name: 'essay',
         component: Home
     },
     {
+        meta: {index: 3},
         path: '/collect',
         name: 'collect',
         component: Home
