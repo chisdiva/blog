@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <nav-bar></nav-bar>
+<!--    <nav-bar></nav-bar>-->
     <el-dialog title="登陆" :visible.sync="dialogFormVisible" :close-on-click-modal="false"
                :close-on-press-escape="false" :show-close="false">
       <el-form :model="form">
@@ -59,9 +59,11 @@ name: "Login",
       })
     },
     backToIndex() {
+      this.dialogFormVisible=false
       this.$router.replace('/')
     }
   }
+
 }
 </script>
 

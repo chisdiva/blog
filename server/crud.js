@@ -71,7 +71,7 @@ const blogUsers = mongoose.model('blogUsers', {
     }
 })
 
-const user = mongoose.model('user', {
+const users = mongoose.model('users', {
     userName: {
         type: String,
         required: true
@@ -85,5 +85,6 @@ module.exports = {
     myBlog: myBlog,
     myEssay: myEssay,
     myCollect: myCollect,
-    blogUsers: blogUsers
+    blogUsers: blogUsers,
+    users: users
 }

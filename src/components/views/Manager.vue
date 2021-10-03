@@ -1,6 +1,6 @@
 <template>
   <div id="manager">
-    <nav-bar></nav-bar>
+<!--    <nav-bar></nav-bar>-->
     <div class="manager-content">
       <side-bar :categories="categories" class="sidebar" @sideBarClick="sideBarClick"></side-bar>
       <div class="manager-table">
@@ -86,6 +86,7 @@ import SideBar from "@/components/SideBar";
 import Pagination from "@/components/Pagination";
 import NavBar from "@/components/NavBar";
 import {format} from "@/common/util";
+import {request} from "@/network/request"
 //表格只在Manager中使用，所以在这里引入
 import {Table, TableColumn} from "element-ui"
 
@@ -127,7 +128,7 @@ export default {
       this.getData(this.kind[this.currentIndex])
     },
     getData(category) {
-      this.$axios.get(`${category}`).then((res) => {
+      request(`/${category}`).then((res) => {
         this.content = res.data;
         if(res.headers.code === '2') {
           this.$router.replace('/login')
@@ -141,7 +142,7 @@ export default {
         this.dialogFormVisible = true;
         this.isNewCollect = false;
         this.form.id = row._id;
-        this.$axios.get(`${this.kind[this.currentIndex]}/${this.form.id}`).then(res => {
+        request(`/${this.kind[this.currentIndex]}/${this.form.id}`).then(res => {
           this.form.name = res.data.title;
           this.form.link = res.data.link;
         })
@@ -228,9 +229,9 @@ export default {
 </script>
 
 <style scoped>
-#manager {
-  padding-top: 60px;
-}
+/*#manager {*/
+/*  padding-top: 60px;*/
+/*}*/
 .logo {
   padding-left: 40px;
 }

@@ -1,20 +1,25 @@
 <template>
   <div id="app" :style="backgroundImage" @click="clickBg">
+    <nav-bar></nav-bar>
     <transition :name="transitionName">
-      <keep-alive>
+      <keep-alive exclude="Login">
         <router-view></router-view>
       </keep-alive>
     </transition>
+    <user-login class="user-login"></user-login>
   </div>
 </template>
 
 <script>
 import Manager from "@/components/views/Manager";
-
+import NavBar from "@/components/NavBar";
+import UserLogin from "@/components/UserLogin";
 export default {
   name: 'App',
   components: {
-    Manager
+    UserLogin,
+    Manager,
+    NavBar
   },
   data() {
     return {
@@ -47,8 +52,10 @@ export default {
 
 <style>
 @import "assets/css/base.css";
+@import "assets/css/normalize.css";
 #app {
   background-position: 0 -60px;
+  padding-top: 60px;
 }
 
 .slide-right-enter-active,
@@ -78,5 +85,18 @@ export default {
 .slide-left-leave-active {
   opacity: 0;
   transform: translate3d(6%, 0, 0);
+}
+
+.user-login {
+  /*width: 100%;*/
+  /*height: 100%;*/
+  /*position: absolute;*/
+}
+.el-dialog, .el-pager li {
+  background-color: rgba(0,0,0,.3) !important;
+}
+.el-input-group__append {
+  background-color: #409EFF!important;
+  color: #fff!important;
 }
 </style>

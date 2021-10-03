@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <nav-bar></nav-bar>
+<!--    <nav-bar></nav-bar>-->
     <div class="home-wrap">
       <show-item class="item" :blog-data="content" :category="this.category" :current="this.current"></show-item>
       <introduction class="intro"></introduction>
@@ -57,7 +57,7 @@ export default {
 <style scoped>
   #home {
     position: relative;
-    padding-top: 60px;
+
   }
   .home-wrap {
     display: flex;
